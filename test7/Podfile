@@ -1,0 +1,12 @@
+platform :ios, '12.0'
+use_frameworks!
+
+project 'test7.xcodeproj'
+
+target 'test7' do
+  pod 'SDWebImage', '~> 5.0'
+  pod 'AFNetworking'
+  pod 'YYModel'
+
+
+end

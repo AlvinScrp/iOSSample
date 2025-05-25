@@ -6,7 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CAC72FF94B543079B5D3AFEA /* Pods_test7.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF556313498198BCA59E268 /* Pods_test7.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		119F7C822E4E78F02C0DE2DF /* Pods-test7.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test7.release.xcconfig"; path = "Target Support Files/Pods-test7/Pods-test7.release.xcconfig"; sourceTree = "<group>"; };
+		7E9FC753396F3091D65B3B7B /* Pods-test7.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test7.debug.xcconfig"; path = "Target Support Files/Pods-test7/Pods-test7.debug.xcconfig"; sourceTree = "<group>"; };
+		CDF556313498198BCA59E268 /* Pods_test7.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test7.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA5985002DDDAA8700E37557 /* test7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -36,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAC72FF94B543079B5D3AFEA /* Pods_test7.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8FF19679CDADCE1FECE84E10 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7E9FC753396F3091D65B3B7B /* Pods-test7.debug.xcconfig */,
+				119F7C822E4E78F02C0DE2DF /* Pods-test7.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C7E090CC78CA4E44882A077C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CDF556313498198BCA59E268 /* Pods_test7.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EA5984F72DDDAA8700E37557 = {
 			isa = PBXGroup;
 			children = (
 				EA5985022DDDAA8700E37557 /* test7 */,
 				EA5985012DDDAA8700E37557 /* Products */,
+				8FF19679CDADCE1FECE84E10 /* Pods */,
+				C7E090CC78CA4E44882A077C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,9 +92,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA5985182DDDAA8900E37557 /* Build configuration list for PBXNativeTarget "test7" */;
 			buildPhases = (
+				09F8BEBCE2D0D3ADE9438A91 /* [CP] Check Pods Manifest.lock */,
 				EA5984FC2DDDAA8700E37557 /* Sources */,
 				EA5984FD2DDDAA8700E37557 /* Frameworks */,
 				EA5984FE2DDDAA8700E37557 /* Resources */,
+				0121619B836008055BC8B805 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -77,8 +106,6 @@
 				EA5985022DDDAA8700E37557 /* test7 */,
 			);
 			name = test7;
-			packageProductDependencies = (
-			);
 			productName = test7;
 			productReference = EA5985002DDDAA8700E37557 /* test7.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +153,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0121619B836008055BC8B805 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test7/Pods-test7-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test7/Pods-test7-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-test7/Pods-test7-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		09F8BEBCE2D0D3ADE9438A91 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-test7-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EA5984FC2DDDAA8700E37557 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -139,12 +208,14 @@
 /* Begin XCBuildConfiguration section */
 		EA5985192DDDAA8900E37557 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E9FC753396F3091D65B3B7B /* Pods-test7.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VBZBEN75GQ;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = test7/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -165,12 +236,14 @@
 		};
 		EA59851A2DDDAA8900E37557 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 119F7C822E4E78F02C0DE2DF /* Pods-test7.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VBZBEN75GQ;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = test7/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
