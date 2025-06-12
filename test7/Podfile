@@ -7,6 +7,7 @@ target 'test7' do
   pod 'SDWebImage', '~> 5.0'
   pod 'AFNetworking'
   pod 'YYModel'
-
-
+  pod 'libextobjc'
+#  pod 'YYKit'
+ pod 'Masonry'
 end

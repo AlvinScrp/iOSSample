@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ListResultBean : NSObject
 @property (nonatomic, strong) NSString * stat;
-@property (nonatomic, strong) NSArray * data;
+@property (nonatomic, strong) NSArray<ListItemBean *> * data;
 @property (nonatomic, strong) NSString * page;
 @property (nonatomic, strong) NSString * pageSize;
 

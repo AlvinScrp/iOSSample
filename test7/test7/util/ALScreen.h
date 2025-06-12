@@ -9,10 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define IS_LANDSCAPE  (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+#define IS_LANDSCAPE  (false)
 #define SCREEN_WIDTH  (IS_LANDSCAPE?  [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT  (IS_LANDSCAPE?  [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
 
+#define PT(x) UIAdapter(x)
+#define CPT(x) UIAdapter(x)
 #define UI(x) UIAdapter(x)
 #define UIRect(x,y,width,height) UIRectAdapter(x,y,width,height)
 

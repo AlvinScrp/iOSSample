@@ -10,6 +10,7 @@
 #import "NewsViewController.h"
 #import "RecommendViewController.h"
 #import "VideoViewController.h"
+#import "GoodsListViewController.h"
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
 
@@ -21,19 +22,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 首先设置 window 和背景色
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor redColor];
+    self.window.backgroundColor = [UIColor whiteColor];
     // 设置初始根视图控制器
-    UIViewController *vc = [[UIViewController alloc] init];
-    self.window.rootViewController = vc;
+//    UIViewController *vc = [[UIViewController alloc] init];
+//    self.window.rootViewController = vc;
+//    [self.window makeKeyAndVisible];
+
+//    UIView *launchView = [self  addLaunchView];
+//    // 延迟移除启动图
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [launchView removeFromSuperview];
+//        [self loadMainViewController];
+//    });
+    
+    [self loadMainViewController];
     [self.window makeKeyAndVisible];
-    
-    UIView *launchView = [self  addLaunchView];
-    
-    // 延迟移除启动图
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [launchView removeFromSuperview];
-        [self loadMainViewController];
-    });
     
     return YES;
 }
@@ -54,6 +57,11 @@
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tabbarController];
     
+    GoodsListViewController * goodsVc = [[GoodsListViewController alloc] init];
+    goodsVc.tabBarItem.title=@"Goods";
+    goodsVc.tabBarItem.image=[UIImage imageNamed:@"home"];
+    goodsVc.tabBarItem.selectedImage =[UIImage imageNamed:@"home_selected"];
+    
     NewsViewController * newsVc = [[NewsViewController alloc] init];
     newsVc.tabBarItem.title=@"News";
     newsVc.tabBarItem.image=[UIImage imageNamed:@"home"];
@@ -70,7 +78,7 @@
     videoVc.tabBarItem.selectedImage =[UIImage imageNamed:@"video_selected"];
     
     
-    [tabbarController setViewControllers:@[newsVc,recommendVc,videoVc]];
+    [tabbarController setViewControllers:@[goodsVc,newsVc,recommendVc,videoVc]];
     tabbarController.delegate = self;
     
     self.window.rootViewController = navigationController;
