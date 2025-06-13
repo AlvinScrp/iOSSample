@@ -14,6 +14,9 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - IGListDiffKit (5.0.0)
+  - IGListKit (5.0.0):
+    - IGListDiffKit (= 5.0.0)
   - libextobjc (0.6):
     - libextobjc/EXTADT (= 0.6)
     - libextobjc/EXTConcreteProtocol (= 0.6)
@@ -50,33 +53,46 @@ PODS:
   - libextobjc/RuntimeExtensions (0.6)
   - libextobjc/UmbrellaHeader (0.6)
   - Masonry (1.1.0)
+  - MJRefresh (3.7.9)
   - SDWebImage (5.21.0):
     - SDWebImage/Core (= 5.21.0)
   - SDWebImage/Core (5.21.0)
+  - Toast (4.1.1)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
+  - IGListKit
   - libextobjc
   - Masonry
+  - MJRefresh
   - SDWebImage (~> 5.0)
+  - Toast (~> 4.1.1)
   - YYModel
 
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - IGListDiffKit
+    - IGListKit
     - libextobjc
     - Masonry
+    - MJRefresh
     - SDWebImage
+    - Toast
     - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  IGListDiffKit: 02d937d7e714d6f558771f284ed80668d483b522
+  IGListKit: baf7e87b4c2262cd569c380e46ca5667a4a82c82
   libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 72f024b07f61108c156c33afe5a0a341d10147eb
+PODFILE CHECKSUM: c3bc5247bc501fe63e7d56b2daa1db189041cdf2
 
 COCOAPODS: 1.16.2

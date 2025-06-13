@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, JLSearchResultPitemButtonStatus) {
 /// 剩余尺码
 @property (nonatomic, copy) NSString *remainingQuantity;
 
-@property (nonatomic,strong,nullable) HykPriceCommissionModel * priceCommissionResp;
+@property (nonatomic,strong) HykPriceCommissionModel * priceCommissionResp;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -18,11 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GoodsListViewModel : NSObject
 @property (nonatomic,weak) id<GoodsListViewModelDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray *cells;
+@property (nonatomic, strong) NSMutableArray *items;
 
 -(void) loadData;
-
--(JLSearchResultPitemModel *)getModelByIndex:(NSInteger) index;
 
 @end
 

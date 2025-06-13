@@ -10,4 +10,7 @@ target 'test7' do
   pod 'libextobjc'
 #  pod 'YYKit'
  pod 'Masonry'
+ pod 'IGListKit'
+ pod 'Toast', '~> 4.1.1'
+ pod 'MJRefresh'
 end

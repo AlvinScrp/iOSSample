@@ -10,6 +10,65 @@
 #import "PaddingLabel.h"
 #import "HykPriceCommissionUtil.h"
 #import "PromotionTagView.h"
+#import "UIView+Click.h"
+
+
+@implementation GoodsItem
+
+- (instancetype)initWithId:(NSString *)id model:(JLSearchResultPitemModel *)model{
+    if (self = [super init]) {
+        _id = [id copy];
+        _model = model;
+    }
+    return self;
+}
+
+// IGListDiffable 协议方法
+- (id<NSObject>)diffIdentifier {
+    return self.id; // 唯一标识符
+}
+
+- (BOOL)isEqualToDiffableObject:(id<IGListDiffable>)object {
+    if (self == object) return YES;
+    if (![(NSObject *)object isKindOfClass:[GoodsItem class]]) return NO;
+    
+    GoodsItem *other = (GoodsItem *)object;
+    //    return false;
+    return [self.model.pitemId isEqualToString:other.model.pitemId]; // 比较内容是否相同
+}
+
+@end
+
+@interface GoodsItemSectionController()
+@property (nonatomic,strong)  GoodsItem *goodsItem;
+@end
+@implementation GoodsItemSectionController {
+    
+}
+#pragma mark - IGListSectionController Overrides
+
+- (NSInteger)numberOfItems {
+    return 1; // 每个 Section 只有一个 Cell
+}
+
+- (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
+    NSLog(@"cellForItemAtIndex - index: %@", @(index));
+    GoodsListItemCell *cell = [self.collectionContext dequeueReusableCellOfClass:[GoodsListItemCell class ] forSectionController:self atIndex:index];
+    cell.model =_goodsItem.model;
+//    cell.delegate = _delegate;
+    [cell bindData];
+    [cell setupEvent:_delegate];
+    
+    return cell;
+}
+
+- (void)didUpdateToObject:(id)object {
+    _goodsItem = object; // 绑定数据模型
+}
+
+
+@end
+
 @interface GoodsListItemCell()
 @property (nonatomic,strong) UIView * bgView;
 @property (nonatomic,strong) UIImageView * photoIv;
@@ -35,19 +94,20 @@
     return self;
 }
 -(void) createUI{
-    [self.contentView addSubview:self.bgView];
+    
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        //        make.edges.mas_equalTo(self);
+        make.edges.mas_equalTo(self);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
     //    [self]
     
+    [self.contentView addSubview:self.bgView];
     self.bgView.backgroundColor=UIColor.whiteColor;
     self.bgView.layer.cornerRadius = CPT(6);
     self.bgView.layer.masksToBounds = YES;
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.inset(CPT(12));
-        make.top.mas_equalTo(self.contentView);
+        make.top.mas_equalTo(self.contentView).inset(CPT(12));
         make.bottom.mas_equalTo(self.contentView);
         make.width.mas_equalTo(CPT(351));
         //                make.height.mas_greaterThanOrEqualTo(CPT(154));
@@ -122,7 +182,7 @@
     
     
     self.addCartBtn.backgroundColor = [UIColor whiteColor];
-//    self.addCartBtn.contentEdgeInsets = UIEdgeInsetsMake(CPT(7), CPT(15),CPT(7), CPT(15) );
+    //    self.addCartBtn.contentEdgeInsets = UIEdgeInsetsMake(CPT(7), CPT(15),CPT(7), CPT(15) );
     [self.addCartBtn setTitle:@"加购物车" forState:UIControlStateNormal];
     [self.addCartBtn setTitleColor:UIColorFromRGB(0xffFD4E18) forState:UIControlStateNormal];
     self.addCartBtn.titleLabel.font = [UIFont pingFangSCMediumFontWithSize:13] ;
@@ -137,11 +197,11 @@
         make.top.mas_equalTo([self.promotionTagV mas_bottom]).offset(CPT(9));
         make.height.mas_equalTo(CPT(27));
         make.width.mas_equalTo(CPT(83));
-        make.bottom.mas_equalTo(self.bgView).inset(CPT(12)); 
+        make.bottom.mas_equalTo(self.bgView).inset(CPT(12));
     }];
     
     self.shareBtn.backgroundColor =UIColorFromRGB(0xffFD4E18)  ;
-//    self.shareBtn.contentEdgeInsets = UIEdgeInsetsMake(CPT(7), CPT(15),CPT(7), CPT(15) );
+    //    self.shareBtn.contentEdgeInsets = UIEdgeInsetsMake(CPT(7), CPT(15),CPT(7), CPT(15) );
     [self.shareBtn setTitle:@"转发" forState:UIControlStateNormal];
     [self.shareBtn setTitleColor:[UIColor  whiteColor] forState:UIControlStateNormal];
     self.shareBtn.titleLabel.font = [UIFont pingFangSCMediumFontWithSize:13] ;
@@ -161,31 +221,41 @@
     
 }
 -(void) bindData{
-    NSLog(@"%@",self.model);
-    [self.photoIv loadCdnUrl:self.model.goodsUrl.cdnString];
+    JLSearchResultPitemModel *  model =self.model;
+    NSLog(@"%@",model);
+    [self.photoIv loadCdnUrl:model.goodsUrl.cdnString];
     [self.soldoutIv loadCdnUrl:image_url_soldout];
     
-    [self setTitleWithText:self.model.title imageURLs:self.model.titleLabelUrls imageHeight:CPT(14)  verticalOffset:CPT(2)];
+    [self setTitleWithText:model.title imageURLs:model.titleLabelUrls imageHeight:CPT(14)  verticalOffset:CPT(2)];
+//    self.titleLabel.text = model.title;
     
-    [self setTag:self.tag0Label index:0];
-    [self setTag:self.tag1Label index:1];
+    [self setTag:self.tag0Label index:0 model:model];
+    [self setTag:self.tag1Label index:1 model:model];
     
-    [self setPriceText];
+    [self setPriceText:model];
     
-    [self setCommissionText];
+    [self setCommissionText:model];
     
-    [self setPromotionTagContent];
+    [self setPromotionTagContent:model];
     
     
     
-    [self.addCartBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        if( self.promotionTagV.isHidden){
-            make.top.mas_equalTo([self.commissionLabel mas_bottom]).offset(CPT(6));
-        }else{
-            make.top.mas_equalTo([self.promotionTagV mas_bottom]).offset(CPT(6));
+    //    [self.addCartBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+    //        make.top.mas_equalTo([self.promotionTagV mas_bottom]).offset(self.promotionTagV.isHidden?-CPT(7):CPT(9));
+    //
+    //    }];
+    //
+    [self.addCartBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo([self.photoIv mas_right]).offset(CPT(9));
+        if (self.promotionTagV.isHidden) {
+            make.top.mas_equalTo(self.commissionLabel.mas_bottom).offset(CPT(9));
+        } else {
+            make.top.mas_equalTo(self.promotionTagV.mas_bottom).offset(CPT(9));
         }
+        make.height.mas_equalTo(CPT(27));
+        make.width.mas_equalTo(CPT(83));
+        make.bottom.mas_equalTo(self.bgView).inset(CPT(12));
     }];
-    
     
 }
 /**
@@ -226,6 +296,7 @@
     
     // 3. 所有图片下载完成后，插入到富文本
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        NSLog(@"dispatch_group_notify %@",images);
         for (UIImage *image in images) {
             NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
             attachment.image = image;
@@ -246,10 +317,10 @@
     });
 }
 
--(void) setPriceText{
+-(void) setPriceText:(JLSearchResultPitemModel*) model{
     // 1. 创建一个空的富文本
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
-    NSDictionary * info = [HykPriceCommissionUtil getDisplayPriceAndPrefix:self.model.priceCommissionResp];
+    NSDictionary * info = [HykPriceCommissionUtil getDisplayPriceAndPrefix:model.priceCommissionResp];
     NSString * prefix = info[@"prefix"];
     NSNumber * price = info[@"price"];
     
@@ -274,7 +345,7 @@
                                                   attributes:@{NSForegroundColorAttributeName: UIColorFromRGB(0x333333),NSFontAttributeName: [UIFont systemFontOfSize:CPT(15)]}] ];
         
     }
-    if([HykPriceCommissionUtil hasRangeAndNotOneNumNYuan:self.model.priceCommissionResp]){
+    if([HykPriceCommissionUtil hasRangeAndNotOneNumNYuan:model.priceCommissionResp]){
         [attributedString appendAttributedString:[[NSAttributedString alloc]
                                                   initWithString: @"起"
                                                   attributes: @{NSForegroundColorAttributeName: UIColorFromRGB(0x333333),NSFontAttributeName: [UIFont systemFontOfSize:CPT(12)]}] ];
@@ -283,10 +354,10 @@
     
     self.priceLabel.attributedText = attributedString;
 }
--(void) setCommissionText{
+-(void) setCommissionText:(JLSearchResultPitemModel*) model{
     // 1. 创建一个空的富文本
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
-    NSNumber * commission = [HykPriceCommissionUtil getTotalCommission:self.model.priceCommissionResp];
+    NSNumber * commission = [HykPriceCommissionUtil getTotalCommission:model.priceCommissionResp];
     
     if (commission) {
         [attributedString appendAttributedString:[[NSAttributedString alloc]
@@ -302,13 +373,13 @@
     self.commissionLabel.attributedText = attributedString;
 }
 
--(void) setTag:(PaddingLabel *)label index:(NSInteger) index{
-    if (index >= self.model.labelList.count) {
+-(void) setTag:(PaddingLabel *)label index:(NSInteger) index model:(JLSearchResultPitemModel*) model{
+    if (index >= model.labelList.count) {
         label.hidden = YES;
         return;
     }
     
-    JLSearchResultPitemLabelModel *labelModel = [self.model.labelList objectAtIndex:index];
+    JLSearchResultPitemLabelModel *labelModel = [model.labelList objectAtIndex:index];
     if (!labelModel) {
         label.hidden = YES;
         return;
@@ -333,10 +404,10 @@
         label.hidden = YES;
     }
 }
--(void) setPromotionTagContent{
+-(void) setPromotionTagContent:(JLSearchResultPitemModel*) model{
     
-    NSString * promotionText =self.model.priceCommissionResp.promotionDTO.promotionDescription;
-    BOOL isStart = [HykPriceCommissionUtil isPromotionStart:self.model.priceCommissionResp];
+    NSString * promotionText =model.priceCommissionResp.promotionDTO.promotionDescription;
+    BOOL isStart = [HykPriceCommissionUtil isPromotionStart:model.priceCommissionResp];
     if(promotionText.isNotNullOrEmpty){
         [self.promotionTagV setContentWithText: promotionText Pre:!isStart ];
         self.promotionTagV.hidden = NO;
@@ -417,6 +488,24 @@
     return  _shareBtn;
 }
 
+-(void) setupEvent:(id<IGoodsListItemCellDelegate> ) delegate{
+    
+    if(delegate){
+        @weakify(self);
+        [self.contentView addClickAction:^{
+            @strongify(self);
+            [delegate onClickGoodsListItemCellItem:self model:self.model];
+        }];
+        [self.addCartBtn addClickAction:^{
+            @strongify(self);
+            [delegate onClickGoodsListItemCellAddCart:self model:self.model];
+        }];
+        [self.shareBtn addClickAction:^{
+            @strongify(self);
+            [delegate onClickGoodsListItemCellShare:self model:self.model];
+        }];
+    }
+}
 
 
 @end

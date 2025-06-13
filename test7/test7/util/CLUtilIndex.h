@@ -15,6 +15,7 @@
 #import "NSNumber+CL.h"
 #import "UIImage+CL.h"
 #import "UIFont+CL.h"
+#import "EXTScope.h" // 引入 libextobjc
 
 
 //    NSString * urlString = @"http://daily.webuy.ai/rubik/gatherOrder/pitemList";

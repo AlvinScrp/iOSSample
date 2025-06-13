@@ -20,30 +20,30 @@ typedef NS_ENUM(NSUInteger, HykPromotionActivityType) {
 @interface PromotionDTOModel : NSObject
 
 @property (nonatomic, assign) HykPromotionActivityType activityType;
-@property (nonatomic, assign,nullable) NSNumber * activityGmtStart;
-@property (nonatomic, assign,nullable) NSNumber *  activityGmtEnd;
-@property (nonatomic, assign,nullable) NSNumber *  priceWithPromotion;
-@property (nonatomic, copy, nullable) NSString *actionValue;
-@property (nonatomic, copy, nullable) NSString *conditionValue;
-@property (nonatomic, copy, nullable) NSString *prefix;
-@property (nonatomic, copy, nullable) NSString *priceWithPromotionAfter;
-@property (nonatomic, copy, nullable) NSString *promotionDescription;
+@property (nonatomic, assign) NSNumber * activityGmtStart;
+@property (nonatomic, assign) NSNumber *  activityGmtEnd;
+@property (nonatomic, assign) NSNumber *  priceWithPromotion;
+@property (nonatomic, copy) NSString *actionValue;
+@property (nonatomic, copy) NSString *conditionValue;
+@property (nonatomic, copy) NSString *prefix;
+@property (nonatomic, copy) NSString *priceWithPromotionAfter;
+@property (nonatomic, copy) NSString *promotionDescription;
 
 @end
 
 @interface HykPriceCommissionModel : NSObject
-@property (nonatomic, strong,nullable) NSString * pitemId;
-@property (nonatomic, strong, nullable) NSString *itemId;
-@property (nonatomic, assign,nullable) NSNumber * originPrice;
-@property (nonatomic, assign,nullable) NSNumber * price;
-@property (nonatomic, assign,nullable) NSNumber * minPrice;
-@property (nonatomic, assign,nullable) NSNumber * maxPrice;
-@property (nonatomic, assign,nullable) NSNumber * minCommission;
-@property (nonatomic, assign,nullable) NSNumber * maxCommission;
-@property (nonatomic, assign,nullable) NSNumber * doubleCommission;
-@property (nonatomic, assign, nullable) NSNumber *doubleWarmUp;
-@property (nonatomic, assign, nullable) NSNumber *activityType;
-@property (nonatomic, strong, nullable) PromotionDTOModel *promotionDTO;
+@property (nonatomic, strong) NSString * pitemId;
+@property (nonatomic, strong) NSString *itemId;
+@property (nonatomic, assign) NSNumber * originPrice;
+@property (nonatomic, assign) NSNumber * price;
+@property (nonatomic, assign) NSNumber * minPrice;
+@property (nonatomic, assign) NSNumber * maxPrice;
+@property (nonatomic, assign) NSNumber * minCommission;
+@property (nonatomic, assign) NSNumber * maxCommission;
+@property (nonatomic, assign) NSNumber * doubleCommission;
+@property (nonatomic, assign) NSNumber *doubleWarmUp;
+@property (nonatomic, assign) NSNumber *activityType;
+@property (nonatomic, strong) PromotionDTOModel *promotionDTO;
 @end
 
 
