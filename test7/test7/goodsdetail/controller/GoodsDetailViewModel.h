@@ -9,7 +9,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol GoodsDetailViewModelDelegate <NSObject>
+
+@optional
+-(void) onLoadFinish;
+
+@end
+
 @interface GoodsDetailViewModel : NSObject
+@property (nonatomic,weak) id<GoodsDetailViewModelDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray *items;
+
+-(void) loadData;
 
 @end
 

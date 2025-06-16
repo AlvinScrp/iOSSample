@@ -21,6 +21,8 @@
 //    NSString * urlString = @"http://daily.webuy.ai/rubik/gatherOrder/pitemList";
 #define request_url_pitemList ("http://127.0.0.1:3306/data/pitemList")
 
+#define request_url_pitemDetail ("http://127.0.0.1:3306/data/pitemDetail")
+
 #define symbolString (@"¥")
 
 #define image_url_soldout (@"base-service-webserver/78502005/assets/img/2025/06/05/05e8022b-a600-4b12-9a9b-2d5a4d440340__25KB____size210x210.png".cdnString)

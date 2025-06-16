@@ -14,7 +14,7 @@
 #import "MJRefresh.h"
 #import "CLUtilIndex.h"
 
-@interface GoodsListViewController ()<GoodsListViewModelDelegate, UICollectionViewDelegateFlowLayout,IGoodsListItemCellDelegate>
+@interface GoodsListViewController ()<GoodsListViewModelDelegate,IGoodsListItemCellDelegate>
 @property (nonatomic,strong) GoodsListViewModel * vm;
 @property (nonatomic,strong) UIView * titleBar;
 @property (nonatomic, strong) UICollectionView *collectionView;
